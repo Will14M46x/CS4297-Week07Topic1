@@ -1,13 +1,16 @@
 package com.example.fulfillmentworkerservice.model;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Order {
     private String orderId;
+
     private List<String> items;
+
     private double amount;
 
-    // Default constructor for Jackson deserialization
     public Order() {}
 
     public Order(String orderId, List<String> items, double amount) {
@@ -28,8 +31,13 @@ public class Order {
         return items;
     }
 
+    @JsonProperty("items")
     public void setItems(List<String> items) {
         this.items = items;
+    }
+    @JsonProperty("item")
+    private void setSingleItem(String item) {
+        this.items = List.of(item);
     }
 
     public double getAmount() {
